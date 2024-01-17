@@ -1,0 +1,9 @@
+
+
+
+Q1: R: #!/bin/bash
+Q2: R: Pour dir que le script est en Bash
+Q3: R: chmod 777 Nom_du_fichier
+Q4: R: ./monscript.sh
+
+
