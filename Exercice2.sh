@@ -10,7 +10,7 @@ read -p "Entre un Entier :" entier1
 read -p "Entre le 2 Entier :" entier2
 
 
-for ((i=entier1; i<entier2; i++)); do
+for ((i=entier1+1; i<entier2; i++)); do
     sum=$((sum + i))
 done
 
