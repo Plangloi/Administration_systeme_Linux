@@ -3,23 +3,16 @@
 out=0
 
 function pause {
-	echo "enter to continue! "
+	echo ""
+	echo ""
+	echo "Enter to continue! "
 	read
+	clear
 }
 
 function quiter {
-	echo " Bye Bye! "
+	echo " Bye Bye Merci beaucoup! "
 	out=1
-}
-
-function verifyuser {
-	read -p " Nom user : " util
-	if grep "$util:" /etc/passwd >/dev/null; then
-		echo "L'utilisateur $util existe!"
-		pause
-	else
-		echo "User not found....."
-	fi
 }
 
 function afficheruid {
@@ -41,7 +34,6 @@ function affichagemenu {
 	read -p "Main Menu [1-4] : " choix_menu
 }
 
-
 function montools {
 	echo "          a-Afficher la version Linux"
 	echo "          b-Afficher le nom de l'utilisateur de la session actuelle : "
@@ -52,18 +44,21 @@ function montools {
 	read -p "           Menu Information Systeme [a-c] : " montools_input
 
 	if [[ $montools_input == a ]]; then
-        clear
+		clear
 		cat /etc/os-release
+		pause
 
 	elif [[ $montools_input == b ]]; then
-        clear
-        echo "Votre nom est : "
-        whoami
+		clear
+		echo "Votre nom est : "
+		whoami
+		pause
 
 	elif [[ $montools_input == c ]]; then
-        clear
-        echo "La date est : "
+		clear
+		echo "La date est : "
 		date +"Année: %Y, Mois: %m, Jour: %d"
+		pause
 
 	elif [[ $montools_input == q ]]; then
 		quiter
@@ -74,7 +69,7 @@ function montools {
 	else
 		clear
 		echo "Choix invalide ! "
-		sleep 2
+		sleep 1
 
 	fi
 }
@@ -92,53 +87,57 @@ function groups_user {
 
 		read -p " Group a ajouter ? : " new_group
 		sudo groupadd $new_group
-        echo "Le $new_group a ete ajouter !"
-        pause
+		echo "Le $new_group a ete ajouter !"
+		pause
 
 	elif [[ $group_input == b ]]; then
 		read -p " Group a Supprimer ? : " del_group
 		read -p " Supprimer le Group $del_group (y/n) ?" choix_del_group
 		if [[ $choix_del_group == y ]]; then
 			sudo groupdel $del_group
+			echo "Le $del_group a ete suprimmer !"
+			pause
 
 		else
 			echo "Canceling.....Supression de Group! "
-			sleep 2
-            clear
+			sleep 1
+			clear
 			groups_user
 		fi
 
-
 	elif [[ $group_input == c ]]; then
 		read -p " Ajouter utilisateur (nom) ? : " add_user_group
-        read -p " Ajouter utilisateur au groupe (nom du group) ? :" group_name
+		read -p " Ajouter utilisateur au groupe (nom du group) ? :" group_name
 
 		read -p " Ajouter $add_user_group au groupe $group_name (y/n) ?" choix_add_user_group
 		if [[ $choix_add_user_group == y ]]; then
-			sudo usermod -a -G $group_name $add_user_group
+			sudo usermod -aG $group_name $add_user_group
+			echo "Lutilisateur $add_user_group a ete ajouter au group $group_name !"
+			pause
 
 		else
 			echo "Canceling.....addition de $add_user_group au groupe $group_name ! "
 			sleep 1
-            clear
+			clear
 			groups_user
 		fi
-	
+
 	elif [[ $group_input == d ]]; then
 		read -p " Retirer utilisateur (nom) ? : " del_user_group
-        read -p " Retirer $del_user_group de quelle groupe (nom du group) ? :" del_group_name
+		read -p " Retirer $del_user_group de quelle groupe (nom du group) ? :" del_group_name
 
 		read -p " Retirer $del_user_group au groupe $del_group_name (y/n) ?" choix_del_user_group
 		if [[ $choix_del_user_group == y ]]; then
 			sudo gpasswd --delete $del_user_group $del_group_name
+			echo "Lutilisateur $del_user_group a ete suprimmer du Group $del_group_name !"
+			pause
 
 		else
 			echo "Canceling.....Supression de $del_user_group au groupe $del_group_name ! "
 			sleep 1
-            clear
+			clear
 			groups_user
 		fi
-	
 
 	elif [[ $group_input == m ]]; then
 		affichagemenu
@@ -149,7 +148,7 @@ function groups_user {
 	else
 		clear
 		echo "Choix invalide !! "
-		sleep 2
+		sleep 1
 
 	fi
 }
@@ -157,9 +156,6 @@ function groups_user {
 function usertools {
 	echo "          a-Ajouter un utilisateur "
 	echo "          b-Supprimer un utilisateur "
-	# echo "          c-Afficher les utilisateurs "
-	# echo "          4-Ajouter un utilisateur "
-	# echo "          5-Changer le mot de passe d’un utilisateur"
 	echo -e "\033[1;33m(M)Main menu\033[m "
 	echo -e "\033[1;31m(Q)uitter\033[m \n"
 
@@ -172,25 +168,24 @@ function usertools {
 			sudo adduser $new_user
 
 		else
-			echo "Canceling.....Add user! "
-			sleep 2
-            clear
+			echo "Canceling.....user addition! "
+			sleep 1
+			clear
 			usertools
 		fi
-
 
 	elif [[ $usert == b ]]; then
 		read -p " Utilisateur a Supprimer? : " del_new_user
 		read -p " Supprimer $new_user (y/n) ?" del_choix_menu_newuser
 		if [[ $del_choix_menu_newuser == y ]]; then
 			sudo userdel $del_new_user
-            echo "Utilisateur $del_new_user suprimmer....."
-            sleep 1
+			echo "Utilisateur $del_new_user suprimmer....."
+			sleep 1
 
 		else
 			echo "Canceling.....Suppression utilisateurs ! "
 			sleep 1
-            clear
+			clear
 			usertools
 		fi
 
@@ -199,10 +194,15 @@ function usertools {
 
 	elif [[ $usert == q ]]; then
 		quiter
+
+	else
+		echo " Mauvais choix! "
+		sleep 1
+		clear
+		usertools
+
 	fi
 }
-
-
 
 function main {
 
