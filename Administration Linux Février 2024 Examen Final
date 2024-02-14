@@ -89,6 +89,7 @@ function groups_user {
 
 	read -p " Gérer les groupes d’utilisateur : [a-d] : " group_input
 	if [[ $group_input == a ]]; then
+    
 		read -p " Group a ajouter ? : " new_group
 		sudo groupadd $new_group
 
