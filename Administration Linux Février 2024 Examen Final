@@ -41,7 +41,6 @@ function affichagemenu {
 	read -p "Main Menu [1-4] : " choix_menu
 }
 
-
 function montools {
 	echo "          a-Afficher la version Linux"
 	echo "          b-Afficher le nom de l'utilisateur de la session actuelle : "
@@ -55,13 +54,13 @@ function montools {
 		cat /etc/os-release
 
 	elif [[ $montools_input == b ]]; then
-        clear
-        echo "Votre nom est : "
-        whoami
+		clear
+		echo "Votre nom est : "
+		whoami
 
 	elif [[ $montools_input == c ]]; then
-        clear
-        echo "La date est : "
+		clear
+		echo "La date est : "
 		date +"Année: %Y, Mois: %m, Jour: %d"
 
 	elif [[ $montools_input == q ]]; then
@@ -99,14 +98,13 @@ function groups_user {
 		else
 			echo "Canceling.....Supression de Group! "
 			sleep 2
-            clear
+			clear
 			groups_user
 		fi
 
-
 	elif [[ $group_input == c ]]; then
 		read -p " Ajouter utilisateur (nom) ? : " add_user_group
-        read -p " Ajouter utilisateur au groupe (nom du group) ? :" group_name
+		read -p " Ajouter utilisateur au groupe (nom du group) ? :" group_name
 
 		read -p " Ajouter $add_user_group au groupe $group_name (y/n) ?" choix_add_user_group
 		if [[ $choix_add_user_group == y ]]; then
@@ -115,13 +113,13 @@ function groups_user {
 		else
 			echo "Canceling.....addition de $add_user_group au groupe $group_name ! "
 			sleep 1
-            clear
+			clear
 			groups_user
 		fi
-	
+
 	elif [[ $group_input == d ]]; then
 		read -p " Retirer utilisateur (nom) ? : " del_user_group
-        read -p " Retirer $del_user_group de quelle groupe (nom du group) ? :" del_group_name
+		read -p " Retirer $del_user_group de quelle groupe (nom du group) ? :" del_group_name
 
 		read -p " Retirer $del_user_group au groupe $del_group_name (y/n) ?" choix_del_user_group
 		if [[ $choix_del_user_group == y ]]; then
@@ -130,10 +128,9 @@ function groups_user {
 		else
 			echo "Canceling.....Supression de $del_user_group au groupe $del_group_name ! "
 			sleep 1
-            clear
+			clear
 			groups_user
 		fi
-	
 
 	elif [[ $group_input == m ]]; then
 		affichagemenu
@@ -169,10 +166,9 @@ function usertools {
 		else
 			echo "Canceling.....Add user! "
 			sleep 2
-            clear
+			clear
 			usertools
 		fi
-
 
 	elif [[ $usert == b ]]; then
 		read -p " Utilisateur a Supprimer? : " del_new_user
@@ -183,7 +179,7 @@ function usertools {
 		else
 			echo "Canceling.....Suppression utilisateurs ! "
 			sleep 2
-            clear
+			clear
 			usertools
 		fi
 
@@ -194,8 +190,6 @@ function usertools {
 		quiter
 	fi
 }
-
-
 
 function main {
 
